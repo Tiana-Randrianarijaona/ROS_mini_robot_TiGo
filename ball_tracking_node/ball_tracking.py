@@ -12,7 +12,7 @@ import imutils
 import time
 from TrackerHelper import TrackerHelper
 
-trackerHelper = TrackerHelper()
+trackerHelper = TrackerHelper(real_ball_radius=5., focal_length=277.)
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -93,8 +93,11 @@ while True:
 			cv2.circle(frame, (int(x), int(y)), int(radius),
 				(0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
-		distance = trackerHelper.getCoordinates(radius)
-		print(f"Distance = {distance}")
+		# trackerHelper.setFocalLength(30.,radius)
+		# print(f"focal_length = {trackerHelper.focal_length}")
+		# distance = trackerHelper.getDistance(radius)
+		trackerHelper.getCoordinates(radius,x)
+		# print(f"Distance = {distance}")
 
 	# update the points queue
 	pts.appendleft(center)
