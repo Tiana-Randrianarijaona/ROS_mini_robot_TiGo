@@ -10,11 +10,12 @@ class TrackerHelper():
         #return focal length.
         self.focal_length =  focal_length_value
     
-    def getCoordinates(self, ball_radius_in_frame, center_y_in_frame):
-        x = (self.real_ball_radius * self.focal_length)/ball_radius_in_frame
-        y = (center_y_in_frame * x )/self.focal_length
-        print(f"(x,y) = ({x},{y})")
-        return (x,y)    
+    #get the distance of the ball from the camera and its coordinate alors the horizontal axis (x axis)
+    def getCoordinates(self, ball_radius_in_frame,x_in_frame, frame_center_along_x_axis):
+        distance_from_camera = (self.real_ball_radius * self.focal_length)/ball_radius_in_frame
+        x = ((x_in_frame - frame_center_along_x_axis) * distance_from_camera )/self.focal_length
+        print(f"(distance_from_camera,x) = ({distance_from_camera},{x})")
+        return (distance_from_camera,x)   
 
     def getDistance(self,radius_in_frame):
         return self.focal_length * self.real_ball_radius / radius_in_frame
