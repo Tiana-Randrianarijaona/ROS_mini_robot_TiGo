@@ -29,7 +29,7 @@ class Image_processor():
         # publish the image showing the ball being detected
         self.pub.publish(self.bridge.cv2_to_imgmsg(result['frame'],"bgr8"))
         msg = Float32MultiArray()
-        msg.data = [result['distance'], result['radius']]
+        msg.data = [result['distance'], result['radius'], result['x']]
         # publish the distance and the radius
         self.pubFloats.publish(msg)
         

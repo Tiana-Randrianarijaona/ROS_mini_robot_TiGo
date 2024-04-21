@@ -38,6 +38,7 @@ class Tracker():
 	def callBack(self, frame_from_image_topic):
 		radius = 0
 		distance = 0
+		x_real = 0
 		# grab the current frame
 		frame = frame_from_image_topic
 
@@ -60,6 +61,19 @@ class Tracker():
 			cv2.CHAIN_APPROX_SIMPLE)
 		cnts = imutils.grab_contours(cnts)
 		center = None
+		rows = frame.shape[0]
+		cols = frame.shape[1]
+		size = min([rows, cols])
+		center_x = int(cols/2.0)
+		center_y = int(rows/2.0)
+		# print(f"shape: {frame.shape}")	
+		
+		line_length = int(size*0.3)
+		
+		#-- X
+		frame = cv2.line(frame, (center_x, center_y), (center_x+line_length, center_y), (0,0,255), 2)
+		#-- Y
+		frame = cv2.line(frame, (center_x, center_y), (center_x, center_y+line_length), (0,255,0), 2)				
 
 		# only proceed if at least one contour was found
 		if len(cnts) > 0:
@@ -79,11 +93,9 @@ class Tracker():
 					(0, 255, 255), 2)
 				cv2.circle(frame, center, 5, (0, 0, 255), -1)
 				# self.trackerHelper.setFocalLength(30.,radius)
-				# print(f"focal_length = {self.trackerHelper.focal_length}")
-				distance = self.trackerHelper.getDistance(radius)
-				# print(f"(x,y) = ({x},{y})")
-				self.trackerHelper.getCoordinates(radius,distance)
-				print(f"Distance = {distance},Radius = {radius}")			
+				# print(f"focal_length = {self.trackerHelper.focal_length}")				
+				distance, x_real = self.trackerHelper.getCoordinates(radius,x,center_x)
+				# print(f"Distance = {distance},Radius = {radius}")			
 
 		# update the points queue
 		self.pts.appendleft(center)
@@ -102,4 +114,4 @@ class Tracker():
 
 		# show the frame to our screen
 		#cv2.imshow("Ball detection", frame)
-		return {"frame": frame, "distance":distance, "radius":radius}		
+		return {"frame": frame, "distance":distance, "radius":radius, "x":x_real}		
