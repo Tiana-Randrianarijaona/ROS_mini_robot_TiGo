@@ -14,17 +14,24 @@ class NavigationToBall():
         self.vel = Twist()
         self.distance = 0
         rate = rospy.Rate(10)
-        self.distanceTreshold = 20.
+        self.distanceTreshold = 13.
+        self.xTreshold = 3.
 
     def pose_callback(self,msg):        
         self.distance = msg.data[0]
-        print(f"Distance = {str(self.distance)}")        
-        if self.distance == 0.:        
+        self.x = abs(msg.data[2])
+        move = ""
+        print(f"Distance = {str(self.distance)}, x = {str(self.x)}")        
+        if (self.distance == 0.0 and self.x == 0.0) or (self.distance > self.distanceTreshold and self.x > self.xTreshold):        
             self.selfRotate(0.3)
-        elif self.distance <= self.distanceTreshold:
+            move = "rotation"
+        elif (self.distance <= self.distanceTreshold and self.distance > 0.0) and (self.x < self.xTreshold and self.x > 0.0):
             self.stopRobot()
-        elif self.distance > self.distanceTreshold:
-            self.moveForward(0.2)
+            move = "stop"
+        elif self.distance > self.distanceTreshold and (self.x < self.xTreshold and self.x > 0.0):
+            self.moveForward(0.1)
+            move = "forward"
+        print(f"Distance = {str(self.distance)}, x = {str(self.x)}, move = {move}")   
     
     def selfRotate(self,angularSpeed):
         self.vel.angular.z = angularSpeed
