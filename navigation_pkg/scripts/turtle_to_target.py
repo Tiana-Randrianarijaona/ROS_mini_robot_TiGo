@@ -41,13 +41,13 @@ def turtle_to_target():
     rospy.init_node('turtle_to_target', anonymous=False)
 
     # Create a subscriber to the turtle2 pose topic (our target) in order to find its position
-    sub_target = rospy.Subscriber('/turtle2/pose', Pose, pose_target_callback)
+    # sub_target = rospy.Subscriber('/turtle2/pose', Pose, pose_target_callback)
 
-    # Create a subscriber to the turtle1 pose topic    
-    sub = rospy.Subscriber('/turtle1/pose', Pose, pose_callback)
+    # Create a subscriber to the raw_odom topic    
+    sub = rospy.Subscriber('/raw_odom', Pose, pose_callback)
 
-    # Create a publisher to the turtle1 velocity command
-    pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size = 10)
+    # Create a publisher to the robot's velocity command
+    pub = rospy.Publisher('/cmd_vel', Twist, queue_size = 10)
 
     rate = rospy.Rate(10) # 10hz
  
