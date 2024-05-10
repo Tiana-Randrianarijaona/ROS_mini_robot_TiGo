@@ -14,7 +14,7 @@ class NavigationToBall():
         self.vel = Twist()
         self.distance = 0
         rate = rospy.Rate(10)
-        self.distanceTreshold = 13.
+        self.distanceTreshold = 16.
         self.xTreshold = 3.
 
     def pose_callback(self,msg):        
@@ -28,8 +28,8 @@ class NavigationToBall():
         elif (self.distance <= self.distanceTreshold and self.distance > 0.0) and (self.x < self.xTreshold and self.x > 0.0):
             self.stopRobot()
             move = "stop"
-        elif self.distance > self.distanceTreshold and (self.x < self.xTreshold and self.x > 0.0):
-            self.moveForward(0.1)
+        elif self.distance > self.distanceTreshold and (self.x < self.xTreshold and self.x > 0.0):            
+            self.moveForward(0.15)
             move = "forward"
         print(f"Distance = {str(self.distance)}, x = {str(self.x)}, move = {move}")   
     
