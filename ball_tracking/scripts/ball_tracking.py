@@ -18,8 +18,14 @@ class Tracker():
 			  trackerHelper = TrackerHelper(real_ball_radius=5., focal_length=750.),
 			#   yellowLower = (16,34,144),
 			#   yellowUpper = (43, 151, 255)):	
-			yellowLower = (102,91,90),
-			yellowUpper = (255,255,255)	):
+			# yellowLower = (102,91,90),
+			# yellowUpper = (255,255,255)	):
+			#for blue ball
+			# yellowLower = (89,95,119),
+			# yellowUpper = (119,141,222)	):
+			#for Green balls
+			yellowLower = (45,49,106),
+			yellowUpper = (77,146,217)	):
 		# trackerHelper = TrackerHelper(real_ball_radius=5., focal_length=277.)
 		self.trackerHelper = trackerHelper
 

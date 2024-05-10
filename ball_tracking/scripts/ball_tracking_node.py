@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import rospy
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import Image, CompressedImage
 from std_msgs.msg import Float32MultiArray
 from cv_bridge import CvBridge
 import cv2
@@ -14,7 +14,7 @@ class Image_processor():
         self.tracker = Tracker()  
         rospy.init_node('image_subscriber')
         image_topic = "/image_raw"
-        self.sub = rospy.Subscriber(image_topic, Image, self.image_callback) 
+        self.sub = rospy.Subscriber(image_topic,Image, self.image_callback) 
         self.pub = rospy.Publisher('/ball_detection', Image, queue_size=1)           
         self.pubFloats = rospy.Publisher('/ball_data', Float32MultiArray, queue_size=1)   
         rate = rospy.Rate(10)
@@ -22,7 +22,9 @@ class Image_processor():
           
 
     def image_callback(self,mdg):    
+        # cv2_img = self.bridge.imgmsg_to_cv2(mdg, "bgr8")
         cv2_img = self.bridge.imgmsg_to_cv2(mdg, "bgr8")
+        
         frame = np.array(cv2_img, dtype=np.uint8)
         # get the frame, the distance between the robot and the ball, and the in_frame_radius of the ball
         result = self.tracker.callBack(frame)
