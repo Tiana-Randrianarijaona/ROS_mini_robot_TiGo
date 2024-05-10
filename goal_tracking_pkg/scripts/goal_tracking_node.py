@@ -12,7 +12,7 @@ class Image_processor():
     def __init__(self):
         self.bridge = CvBridge()
         self.tracker = Tracker()  
-        rospy.init_node('image_subscriber')
+        rospy.init_node('goal_tracking_node')
         image_topic = "/image_raw"
         self.sub = rospy.Subscriber(image_topic, Image, self.image_callback) 
         self.pub = rospy.Publisher('/goal_detection', Image, queue_size=1)           
