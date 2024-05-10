@@ -19,8 +19,8 @@ class Tracker():
 			#   yellowLower = (16,34,144),
 			#   yellowUpper = (43, 151, 255)):	
 			#for
-			yellowLower = (1,3,74),
-			yellowUpper = (69,68,104)	):
+			yellowLower = (45,49,106),
+			yellowUpper = (77,146,217)	):
 		# trackerHelper = TrackerHelper(real_ball_radius=5., focal_length=277.)
 		self.trackerHelper = trackerHelper
 
@@ -91,7 +91,8 @@ class Tracker():
 			print(f"center = {center}, w = {w}, h = {h}")
 			# only proceed if the radius meets a minimum size
 			# track if the rectangle is a goal (it has to be a rectangle which the height should be lower than the width)
-			if h < w:
+			# if h < w:
+			if w > 50.:
 				# Draw the rectangle around the detected contour
 				cv2.rectangle(frame, (int(x), int(y)), (int(x + w), int(y + h)), (0, 255, 0), 2)
 				cv2.circle(frame, center, 5, (0, 0, 255), -1)
