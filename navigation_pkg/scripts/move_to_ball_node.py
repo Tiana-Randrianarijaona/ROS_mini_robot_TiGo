@@ -23,7 +23,7 @@ class NavigationToBall():
         move = ""
         print(f"Distance = {str(self.distance)}, x = {str(self.x)}")        
         if (self.distance == 0.0 and self.x == 0.0) or (self.distance > self.distanceTreshold and self.x > self.xTreshold):        
-            self.selfRotate(0.3)
+            self.selfRotate(0.15)
             move = "rotation"
         elif (self.distance <= self.distanceTreshold and self.distance > 0.0) and (self.x < self.xTreshold and self.x > 0.0):
             self.stopRobot()
