@@ -15,7 +15,7 @@ yellow_min = (21,116,106)
 yellow_max = (31,255,255)
 class Tracker():
 	def __init__(self,
-			  trackerHelper = TrackerHelper(real_ball_radius=5., focal_length=750.),
+			  trackerHelper = TrackerHelper(real_ball_radius=3.75, focal_length=750.),
 			#   yellowLower = (16,34,144),
 			#   yellowUpper = (43, 151, 255)):	
 			# yellowLower = (102,91,90),
@@ -24,8 +24,8 @@ class Tracker():
 			# yellowLower = (89,95,119),
 			# yellowUpper = (119,141,222)	):
 			#for Green balls
-			yellowLower = (45,49,106),
-			yellowUpper = (77,146,217)	):
+				yellowLower = (45,49,106),
+				yellowUpper = (77,146,217)	):	
 		# trackerHelper = TrackerHelper(real_ball_radius=5., focal_length=277.)
 		self.trackerHelper = trackerHelper
 
@@ -94,7 +94,7 @@ class Tracker():
 			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
 			# only proceed if the radius meets a minimum size
-			if radius > 50:
+			if radius > 0:
 				# draw the circle and centroid on the frame,
 				# then update the list of tracked points
 				cv2.circle(frame, (int(x), int(y)), int(radius),
