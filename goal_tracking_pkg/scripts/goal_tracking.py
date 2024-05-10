@@ -16,11 +16,11 @@ yellow_max = (31,255,255)
 class Tracker():
 	def __init__(self,
 			  trackerHelper = TrackerHelper(real_ball_radius=5., focal_length=750.),
-			#   yellowLower = (16,34,144),
-			#   yellowUpper = (43, 151, 255)):	
+			# yellowLower = (45,49,106),
+			# yellowUpper = (77,146,217)	):	
 			#for
-			yellowLower = (45,49,106),
-			yellowUpper = (77,146,217)	):
+			yellowLower = (16,59,107),
+			yellowUpper = (43,122,175)	):
 		# trackerHelper = TrackerHelper(real_ball_radius=5., focal_length=277.)
 		self.trackerHelper = trackerHelper
 
