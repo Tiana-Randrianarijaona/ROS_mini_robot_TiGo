@@ -14,25 +14,31 @@ class GoalNavigation():
         self.vel = Twist()
         self.width = 0
         # rate = rospy.Rate(10)
-        self.widthTreshold = 1.
+        self.widthTreshold = 200.
         self.xTreshold = 150.
+        self.isReadyToKick = False
 
     def pose_callback(self,msg):        
         self.width = msg.data[0]
         self.x = abs(msg.data[1])
         move = ""
+
         print(f"width = {str(self.width)}, x = {str(self.x)}")   
 
         if (self.width == 0.0) and (self.x ==0.):
             self.selfRotate()
             move = "rotation"
+            self.isReadyToKick = False
 
         if (self.width >= self.widthTreshold and self.width > 0.0) and (self.x < self.xTreshold):
             self.stopRobot()
             move = "stop"
+            self.isReadyToKick = True
+
         else:            
             self.selfRotate()
             move = "rotation"
+            self.isReadyToKick = False
         print(f"width = {str(self.width)}, x = {str(self.x)}, move = {move}")   
     
     def selfRotate(self,angularSpeed=0.5, linearSpeed = -0.05):
